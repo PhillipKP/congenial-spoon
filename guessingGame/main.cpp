@@ -1,6 +1,9 @@
 #include <iostream>
 #include <cmath> // for the absolute value
 #include <string>
+#include <regex>
+#include <sstream>
+
 
 
 
@@ -15,7 +18,7 @@ float getFractPart(float x)
 bool isValidNum(std::string num1)
 {
 
-    if( num1.find_first_not_of("1234567890.-") != std::string::npos )
+    if( num1.find_first_not_of("1234567890.- ") != std::string::npos )
     {
         std::cout << "Invalid number " << std::endl;
         return false;
@@ -33,6 +36,15 @@ float str2float(std::string num1)
     float x = 0;
     x = atof( num1.c_str() );
     return x;
+}
+
+// Converts a string to an interger
+int str2int(std::string myText)
+{
+    std::stringstream geek(myText);
+    int guess{0};
+    geek >> guess;
+    return guess;
 }
 
 
@@ -66,42 +78,34 @@ int askUserForInt()
     // Initialize the string variable that will store the guess
     std::string num1{""};
         
-
+    // The regex we will try to match with.
+    auto const regex = std::regex("^[0-9]$|^[0-9][0-9]$|^[0-9][0-9][0-9]$");
+    
+    std::string myText{""};
     while (keepLoopingFlag)
     {
-        std::cout << "Enter a integer: ";
-        std::cin >> num1;
         
+        std::cout << "Type an integer from 0 to 999: ";
+        std::cin >> myText;
+        bool myTextContainsRegex = std::regex_search(myText, regex);
+
+// For debugging purposes
+std::cout << std::boolalpha << myTextContainsRegex << '\n';
+                    
         
-        // Call function to check if the input is actually a float
-        valNumFlag = isValidNum(num1);
-        //std::cout << valNumFlag << '\n';
-        
-        // Converts to a number and sets the keepLoopFlag to false
-        float newNum1{0};
-        
-        if (valNumFlag)
+        if (myTextContainsRegex)
         {
-            newNum1 = str2float(num1);
-            //std::cout << newNum1 << '\n';
-            bool isIntFlag{false};
-            isIntFlag = isInt(newNum1);
-            //std::cout << isIntFlag << '\n';
-            
-            if (isIntFlag)
-            {
-                // If it is an integer it will set keepLoopFlag to false
-                keepLoopingFlag = false;
-                return newNum1;
-            }
+            break;
         }
         else
         {
-            keepLoopingFlag = true;
+            std::cout << "Invalid Input!\n";
         }
-        
     }
-    return 0;
+    
+    int guess { str2int(myText) };
+    return guess;
+    
 }
 
 
@@ -110,27 +114,27 @@ int main() {
     
     // initialize random seed:
     srand (time(NULL));
+    int answer { rand() % 100 + 1 };     // v2 in the range 1 to 100
     
+    // Initialize the variable for storing the guess from the user.
+    float guess{0};
+    
+    // As long as this is true the loop will continue to ask for guesses.
+    bool answerFlag = true;
+       
     // insert code here...
     std::cout << "Hello there! \nI have randomly selected a number between 1 and 100\n";
     
-    int answer { rand() % 100 + 1 } ;     // v2 in the range 1 to 100
-    
-    // Initialize the variable for storing the guess
-    float guess{0};
-    
-    bool answerFlag = true;
     
     while (answerFlag)
     {
-        std::cout << "Please guess a number: ";
-        
     
-
+        //std::cout << "Please guess a number: ";
+        
         // Calls a function that ask users for an integer and will loop until they finally enter an integer.
         guess = askUserForInt() ;
             
-        
+        // Tells the user what they guessed!
         std::cout << "You guessed " << guess << '\n';
         
         if (guess == answer)

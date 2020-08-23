@@ -30,15 +30,18 @@ int askUserForInt()
     
     bool keepLoopingFlag {true};
     
-    // Initialize boolean which tells us if it's actually a float
-    //bool valNumFlag {false};
-    
-    
+   
     // Initialize the string variable that will store the guess
     std::string num1{""};
         
     // The regex we will try to match with.
     auto const regex = std::regex("^[0-9]$|^[0-9][0-9]$|^[0-9][0-9][0-9]$");
+    
+    // Initialize a variable that will store if the regex function has found a match.
+    bool myTextContainsRegex{false};
+    
+    // Initialize the variable that will store the guess after it's converted to an integer. 
+    int guess{0};
     
     std::string myText{""};
     while (keepLoopingFlag)
@@ -46,15 +49,25 @@ int askUserForInt()
         
         std::cout << "Type an integer from 0 to 100: ";
         std::cin >> myText;
-        bool myTextContainsRegex = std::regex_search(myText, regex);
+        
+        myTextContainsRegex = std::regex_search(myText, regex); // Calls a regex function to search myText
 
 // For debugging purposes
-std::cout << std::boolalpha << myTextContainsRegex << '\n';
+//std::cout << std::boolalpha << myTextContainsRegex << '\n';
                     
         
         if (myTextContainsRegex)
         {
-            break;
+            guess = str2int(myText) ;
+            
+            if (guess <= 100)
+            {
+                keepLoopingFlag = false;
+            }
+            else
+            {
+                std::cout << "Invalid Input!\n";
+            }
         }
         else
         {
@@ -62,7 +75,7 @@ std::cout << std::boolalpha << myTextContainsRegex << '\n';
         }
     }
     
-    int guess { str2int(myText) };
+    guess =  str2int(myText);
     return guess;
     
 }

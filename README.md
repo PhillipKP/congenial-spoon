@@ -1,11 +1,10 @@
-# congenial-spoon
-A guess the number game. Written in C++ with Xcode. 
+# congenial-spoon: A guess the number game. Written in C++ with Xcode. 
 
 This is a nice project to force me to learn the basics of C++. 
 
 The user is asked to enter an integer from 0 to 100. 
 
-I used Regular Expressions, function definitions, header files, types, and other basic concepts to implement this program.
+I used Regular Expressions, function definitions, header files, types, if-else statements, and other basic concepts to implement this program.
 
 # Files:
 * main.cpp: Contains the main() function with the main loop.

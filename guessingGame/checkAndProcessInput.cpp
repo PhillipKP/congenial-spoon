@@ -48,7 +48,11 @@ int askUserForInt()
     {
         
         std::cout << "Type an integer from 0 to 100: ";
-        std::cin >> myText;
+        
+        
+        // By using std::getline instead of just std::cin we can check if the user entered spaces into
+        // their input.
+        std::getline (std::cin, myText);
         
         myTextContainsRegex = std::regex_search(myText, regex); // Calls a regex function to search myText
 

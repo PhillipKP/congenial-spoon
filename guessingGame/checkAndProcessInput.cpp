@@ -83,3 +83,68 @@ int askUserForInt()
     return guess;
     
 }
+
+
+
+bool checkInitials(std::string initials)
+{
+    // This function will check if initial are a valid 3 characters they cannot be numbers or special characters.
+    // Only uppercase or lowercase letters are allow.
+    // Only up to 3 characters are allowed.
+
+    // The regex we will try to match with.
+    //auto const regex = std::regex("^[a-z|A-Z]$|^[a-z|A-Z][a-z|A-Z]]$|^[a-z|A-Z][a-z|A-Z][a-z|A-Z]$");
+   
+    auto const regex = std::regex("^[a-z|A-Z]{1,3}$");
+    
+    
+    // Initialize a variable that will store if the regex function has found a match.
+    bool myTextContainsRegex{false};
+
+    // Function actually performs the match
+    myTextContainsRegex = std::regex_search(initials, regex); // Calls a regex function to search
+
+    // Returns 0 if not a match, returns 1 if match
+    return myTextContainsRegex;
+}
+
+
+// This function just gets the input
+std::string askForInitials()
+{
+    std::cout << "Enter your initials: ";
+    std::string initials{};
+    std::getline(std::cin, initials); // read a full line of text into name
+    return initials;
+}
+
+
+
+// This functions calls askForInitials() and checkInitials()
+std::string loopUntilValidInitials()
+{
+
+    // Initialize variables
+    bool isValid{false};
+    std::string initials{""};
+
+    // Loops until we get a valid function
+    while ( isValid == 0 )
+    {
+        
+        // Calls function to ask for initials
+        initials = askForInitials();
+      
+        // Calls function to check initials for validity
+        isValid = checkInitials(initials);
+            
+        if (isValid == 0)
+        {
+            std::cout << "Please enter your initials (numbers and special characters are not allowed).\n\n";
+        }
+        
+//std::cerr << isValid << '\n';
+    }
+    
+    return initials;
+}

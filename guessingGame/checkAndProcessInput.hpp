@@ -26,5 +26,7 @@
     std::string askForInitials();
     std::string loopUntilValidInitials();
 
+    void congrats(int guessNum);
+
 
 #endif /* checkAndProcessInput_hpp */

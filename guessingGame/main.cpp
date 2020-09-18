@@ -37,6 +37,9 @@ int main() {
     // Initialize the variable for storing the guess from the user.
     float guess{0};
     
+    // Initialize the variable for storing the number of guess it took for the user to get it right
+    int guessNum{0};
+    
     // As long as this is true the loop will continue to ask for guesses.
     bool answerFlag = true;
        
@@ -55,10 +58,13 @@ int main() {
         // Tells the user what they guessed!
         std::cout << "You guessed " << guess << '\n';
         
+        ++guessNum; // Increment by 1
+        
         if (guess == answer)
         {
             std::cout << "CORRECT!!!\n\n";
             answerFlag = false;
+
         }
         
         if (guess < answer)
@@ -66,6 +72,7 @@ int main() {
             std::cout << "The number you entered is lower than the correct answer.\n";
             std::cout << "Try again!\n\n";
             answerFlag = true;
+            std::cout << "You have " << guessNum << " guesses.\n";
         }
         
         if (guess > answer)
@@ -73,21 +80,33 @@ int main() {
             std::cout << "The number you entered is higher than the correct answer.\n";
             std::cout << "Try again!\n\n";
             answerFlag = true;
+            std::cout << "You have " << guessNum << " guesses.\n";
                
         }
+        
+        
+        
+        
     }
     
     
      if (guess == answer)
      {
+         
+         
+         // Calls a function to congratulate the user based on the number of guesses.
+         congrats(guessNum);
+
+                 
          // Initialize the initials variable
          std::string initials{""};
          
+                 
          // Calls a function that asks the user for their initials and loops until the their input is valid
          initials = loopUntilValidInitials();
          
          // Outputs the initials
-         std::cout << initials << '\n';
+         std::cout << "Thank you for playing " << initials << '\n';
      }
     
     return 0;

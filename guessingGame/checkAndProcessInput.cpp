@@ -112,7 +112,7 @@ bool checkInitials(std::string initials)
 // This function just gets the input
 std::string askForInitials()
 {
-    std::cout << "Enter your initials: ";
+    std::cout << "Enter your initials (1 to 3 letters): ";
     std::string initials{};
     std::getline(std::cin, initials); // read a full line of text into name
     return initials;
@@ -147,4 +147,18 @@ std::string loopUntilValidInitials()
     }
     
     return initials;
+}
+
+
+// This function displays the congratulations message
+void congrats(int guessNum)
+{
+    if (guessNum > 1)
+    {
+        std::cout << "Congratulations! It took you " << guessNum << " guesses to get it right!\n";
+    }
+    if (guessNum == 1)
+    {
+        std::cout << "Congratulations! It took you 1 guess to get it right!\n";
+    }
 }

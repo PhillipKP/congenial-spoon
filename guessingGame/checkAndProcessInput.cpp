@@ -12,6 +12,18 @@
 #include <string>
 #include <regex>
 #include <sstream>
+#include <random>
+
+// Generates a random number between minNum and maxNum
+int genRandInt(int minNum, int maxNum)
+{
+   
+    std::random_device device;
+    std::mt19937 generator(device());
+    std::uniform_int_distribution<int> distribution(minNum, maxNum);
+    return distribution(generator);
+    
+}
 
 
 // Converts a string to an interger

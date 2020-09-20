@@ -16,6 +16,9 @@
     #include <string>
     #include <regex>
     #include <sstream>
+    #include <random> // used for random number generation
+    
+    int genRandInt(int minNum, int maxNum);
 
     int str2int(std::string myText);
 

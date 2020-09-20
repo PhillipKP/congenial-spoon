@@ -19,15 +19,8 @@
 int main() {
     
     
-    
-    // Initialize our mersenne twister with a random seed based on the clock
-    std::mt19937 mersenne{ static_cast<std::mt19937::result_type>(std::time(nullptr)) };
-    
-    // Create a reusable random number generator that generates uniform numbers between 1 and 100
-    std::uniform_int_distribution die{ 1, 100 };
-    
     // Generate random number
-    int answer{ die(mersenne) };
+    int answer{ genRandInt(0, 100) };
     
 // For debugging purposes
 //std::cerr << answer << '\n';

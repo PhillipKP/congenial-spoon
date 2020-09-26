@@ -1,5 +1,6 @@
-# congenial-spoon: A guess the number game. Written in C++ with Xcode 12 for Mac OSX and Visual Studio 2019 for Windows 10.
+# congenial-spoon: A guess the number game. 
 
+Written in C++ with Xcode 12 for Mac OSX and Visual Studio 2019 for Windows 10.
 
 This is a nice project to force me to learn the basics of C++. 
 

@@ -174,3 +174,12 @@ void congrats(int guessNum)
         std::cout << "Congratulations! It took you 1 guess to get it right!\n";
     }
 }
+
+
+// Gets the time since epoch
+int get_sec_since_epoch()
+{
+    std::time_t result = std::time(nullptr);
+    int sec_since_epoch { static_cast<int>(result) };
+    return sec_since_epoch;
+}

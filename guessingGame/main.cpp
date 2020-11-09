@@ -19,6 +19,20 @@
 #include "checkAndProcessInput.hpp"
 
 
+std::vector<std::string> splitstring_comma(std::string my_str)
+// This function splits strings at the commas
+{
+    std::vector<std::string> result;
+   
+    std::stringstream s_stream(my_str); //create string stream from the string
+   
+    while(s_stream.good()) {
+        std::string substr;
+        getline(s_stream, substr, ','); //get first string delimited by comma
+        result.push_back(substr);
+    }
+    return result;
+}
 
 
 int main() {
@@ -106,11 +120,60 @@ int main() {
          // Outputs the initials
          std::cout << "Thank you for playing " << initials << '\n';
          
+         
+         // -- Opens the file and saves the seconds since epoch, player's initial, and the number of guesses in the file -- //
+         
+         
          std::ofstream myfile{ "example.csv" , std::ios::app };
          
-         myfile << get_sec_since_epoch() << " , " << initials << " , " << number_of_guesses << " , \n";
+         myfile << get_sec_since_epoch() << ", " << initials << ", " << number_of_guesses << "\n";
          
          myfile.close();
+         
+         
+         // -- Opens the CSV file containing the scores and prints everything in the file -- //
+         
+         
+         // ifstream is used for reading files
+         // We'll read from a file called Sample.dat
+         std::ifstream inf{ "example.csv" };
+      
+         // If we couldn't open the input file stream for reading
+         if (!inf)
+         {
+             // Print an error and exit
+             std::cerr << "Uh oh, example.csv could not be opened for reading!\n";
+             return 1;
+         }
+         
+         std::vector<std::string> entire_output;
+         
+         // While there's still stuff left to read it loops over each line in the file
+         // Each line is added as an entry to the vector of strings called entire_output;
+         while (inf)
+         {
+             // read stuff from the file into a string and print it
+             std::string strInput;
+             std::getline(inf, strInput);
+             entire_output.push_back(strInput);
+         }
+         
+         // Displays the entire output
+         for (int i = 0; i < entire_output.size(); i++)
+         {
+             //std::cout << entire_output[i] << '\n';
+             
+             std::string test_string = entire_output[i];
+         
+             //
+             std::vector<std::string> result = splitstring_comma(test_string);
+         
+             std::cout << result[0] << std::endl;
+             std::cout << result[1] << std::endl;
+             std::cout << result[2] << std::endl;
+         
+         }
+         
      }
 
     return 0;

@@ -155,24 +155,20 @@ int main() {
              // read stuff from the file into a string and print it
              std::string strInput;
              std::getline(inf, strInput);
-             entire_output.push_back(strInput);
-         }
-         
-         // Displays the entire output
-         for (int i = 0; i < entire_output.size(); i++)
-         {
-             //std::cout << entire_output[i] << '\n';
              
-             std::string test_string = entire_output[i];
-         
-             //
-             std::vector<std::string> result = splitstring_comma(test_string);
-         
-             std::cout << result[0] << std::endl;
-             std::cout << result[1] << std::endl;
-             std::cout << result[2] << std::endl;
-         
+             if (!strInput.empty())
+             {
+                 entire_output.push_back(strInput);
+             }
          }
+
+         
+        std::cout << "Here is a list of scores:\n";
+        for (std::string test_string: entire_output)
+        {
+            std::vector<std::string> result = splitstring_comma(test_string);
+            std::cout << result[0] << result[1] << result[2] << '\n';
+        }
          
      }
 

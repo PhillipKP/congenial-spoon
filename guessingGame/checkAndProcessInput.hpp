@@ -31,5 +31,5 @@
 
     void congrats(int guessNum);
 
-    int get_sec_since_epoch();
+    void print_number_of_guesses(int number_of_guesses);
 #endif /* checkAndProcessInput_hpp */

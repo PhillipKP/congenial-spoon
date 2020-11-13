@@ -7,6 +7,7 @@
 //
 
 #include "checkAndProcessInput.hpp"
+#include "high_scores.hpp"
 #include <iostream>
 #include <cmath> // for the absolute value
 #include <string>
@@ -176,10 +177,11 @@ void congrats(int guessNum)
 }
 
 
-// Gets the time since epoch
-int get_sec_since_epoch()
+// This function is self explanatory :)
+void print_number_of_guesses(int number_of_guesses)
 {
-    std::time_t result = std::time(nullptr);
-    int sec_since_epoch { static_cast<int>(result) };
-    return sec_since_epoch;
+    std::cout << "You have " << number_of_guesses << " guesses.\n";
 }
+
+
+

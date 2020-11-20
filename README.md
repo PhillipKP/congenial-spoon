@@ -12,7 +12,7 @@ I used Regular Expressions, function definitions, header files, types, if-else s
 * main.cpp: Contains the main() function with the main loop.
 * checkAndProcessInput.cpp: Contains the custom functions called by the main loop. These functions check the user input to main sure they are integers between 0 and 100. 
 * checkAndProcessInput.hpp: Header files with the forward declarations of all the functions inside checkAndProcessInput.cpp. 
-
+* high_scores.cpp and high_scores.hpp are files with functions to handle displaying the high scores.
 
 
 Comments, issues, and grooming advice are welcome. You do this through the "Issues" section of this repository. 
@@ -21,5 +21,5 @@ This is very self explanatory so I will not create a Wiki for this repo. :)
 
 
 Phillip K Poon
-Last Updated 26 Sep 2020
+Last Updated 20 Nov 2020      
 

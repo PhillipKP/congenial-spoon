@@ -42,3 +42,23 @@ int get_sec_since_epoch()
 
 
 
+// pad initials string
+std::string pad_initials(std::string initials_in)
+{
+    std::string initials_out("");
+    
+    if (initials_in.length() == 3)
+    {
+        initials_out = initials_in + " ";
+    }
+    else if (initials_in.length() == 2)
+    {
+        initials_out = initials_in + "  ";
+    }
+    else if (initials_in.length() == 1)
+    {
+        initials_out = initials_in + "   ";
+    }
+    
+    return initials_out;
+}

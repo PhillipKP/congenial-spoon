@@ -15,6 +15,7 @@
 #include <sstream>
 #include <random>
 
+
 // Generates a random number between minNum and maxNum
 int genRandInt(int minNum, int maxNum)
 {
@@ -60,7 +61,7 @@ int askUserForInt()
     while (keepLoopingFlag)
     {
         
-        std::cout << "Type an integer from 0 to 100: ";
+        std::cout << "Type an integer from 0 to 100 and press enter or return: ";
         
         
         // By using std::getline instead of just std::cin we can check if the user entered spaces into
@@ -180,7 +181,16 @@ void congrats(int guessNum)
 // This function is self explanatory :)
 void print_number_of_guesses(int number_of_guesses)
 {
-    std::cout << "You have " << number_of_guesses << " guesses.\n";
+    if (number_of_guesses == 1)
+    {
+        std::cout << "You made 1 guess.\n";
+    }
+    
+    if (number_of_guesses > 1)
+    {
+        std::cout << "You made " << number_of_guesses << " guesses.\n";
+    }
+    
 }
 
 

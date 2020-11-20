@@ -24,5 +24,6 @@ std::vector<std::string> splitstring_comma(std::string my_str);
 
 int get_sec_since_epoch();
 
+std::string pad_initials(std::string initials_in);
 
 #endif /* high_scores_hpp */

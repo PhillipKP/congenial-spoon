@@ -12,7 +12,6 @@
 //-- for Mersenne Twister random number generating algorithm
 #include <random>
 #include <ctime>
-//--
 
 
 // Include the header file for custom functions
@@ -62,13 +61,15 @@ bool less_than_guesses(const players_struct& struct1, const players_struct& stru
 int main() {
     
     
+    const int answer_min = 0  ;
+    const int answer_max = 100;
+    
     // Generate random number
-    int answer{ genRandInt(0, 100) };
+    int answer{ genRandInt(answer_min, answer_max) };
+
     
 // For debugging purposes
 //std::cerr << answer << '\n';
-    
-    
     
     // Initialize the variable for storing the guess from the user.
     float guess{0};
@@ -80,7 +81,7 @@ int main() {
     bool answerFlag = true;
        
     // insert code here...
-    std::cout << "Hello there! \nI have randomly selected a number between 1 and 100\n";
+    std::cout << "Hello there! \nI have randomly selected a number between 0 and 100\n";
     
     
     while (answerFlag)
@@ -102,21 +103,25 @@ int main() {
             std::cout << "CORRECT!!!\n\n";
             answerFlag = false;
         }
+        
         if (guess < answer)
         {
             std::cout << "The number you entered is lower than the correct answer.\n";
             std::cout << "Try again!\n\n";
-            answerFlag = true;
             
+            // Calls a function to output how many guesses the user produced
             print_number_of_guesses(number_of_guesses);
-            //std::cout << "You have " << number_of_guesses << " guesses.\n";
+            
         }
+        
         if (guess > answer)
         {
             std::cout << "The number you entered is higher than the correct answer.\n";
             std::cout << "Try again!\n\n";
-            answerFlag = true;
-            std::cout << "You have " << number_of_guesses << " guesses.\n";
+            
+            
+            // Calls a function to output how many guesses the user produced
+            print_number_of_guesses(number_of_guesses);
         }
     }
     
@@ -190,7 +195,7 @@ int main() {
          std::vector <players_struct> players;
          
          
-     // loop over each index
+    // loop over each index
     for (std::string test_string: entire_output)
     {
         std::vector<std::string> result = splitstring_comma(test_string);
@@ -200,7 +205,7 @@ int main() {
         int num_of_guesses_stored { std::stoi( result[2]) };
         std::string initials_stored { result[1] };
          
-        //std::cout << time_since_epoch_stored << initials_stored << " " << num_of_guesses_stored << std::endl;
+        //DEBUG: std::cout << time_since_epoch_stored << initials_stored << " " << num_of_guesses_stored << std::endl;
         players.push_back( players_struct( num_of_guesses_stored, time_since_epoch_stored, initials_stored ) );
 
     }
@@ -212,7 +217,27 @@ int main() {
     for (players_struct p: players)
     {
         //D-BUG std::cout << p.stringValue << '\t' << p.guesses << '\t' << p.timeSinceEpoch << '\n';
-        std::cout << p.stringValue << '\t' << p.guesses << std::endl;
+        
+        // function takes the string with initials in it and makes sure they are all the same length
+        
+        
+        std::string hs_initials = p.stringValue;
+        
+        if (hs_initials.length() == 3)
+        {
+            hs_initials = hs_initials + " ";
+        }
+        else if (hs_initials.length() == 2)
+        {
+            hs_initials = hs_initials + "  ";
+        }
+        else if (hs_initials.length() == 1)
+        {
+            hs_initials = hs_initials + "   ";
+        }
+        
+        
+        std::cout << hs_initials << '\t' << p.guesses << std::endl;
     }
          
     return 0;

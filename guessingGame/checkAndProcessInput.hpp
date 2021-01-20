@@ -18,6 +18,9 @@
     #include <sstream>
     #include <random> // used for random number generation
     
+    // For handling files
+    #include <fstream>
+
     int genRandInt(int minNum, int maxNum);
 
     int str2int(std::string myText);
@@ -29,7 +32,7 @@
     std::string askForInitials();
     std::string loopUntilValidInitials();
 
-    void congrats(int guessNum);
+    
 
     void print_number_of_guesses(int number_of_guesses);
 #endif /* checkAndProcessInput_hpp */

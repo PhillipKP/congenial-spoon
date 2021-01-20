@@ -14,7 +14,8 @@
 #include <regex>
 #include <sstream>
 #include <random>
-
+// For handling files
+#include <fstream>
 
 // Generates a random number between minNum and maxNum
 int genRandInt(int minNum, int maxNum)
@@ -41,7 +42,7 @@ int str2int(std::string myText)
 
 int askUserForInt()
 {
-    
+    // Used to keep the loop going
     bool keepLoopingFlag {true};
     
    
@@ -58,6 +59,7 @@ int askUserForInt()
     int guess{0};
     
     std::string myText{""};
+    
     while (keepLoopingFlag)
     {
         
@@ -164,18 +166,7 @@ std::string loopUntilValidInitials()
 }
 
 
-// This function displays the congratulations message
-void congrats(int guessNum)
-{
-    if (guessNum > 1)
-    {
-        std::cout << "Congratulations! It took you " << guessNum << " guesses to get it right!\n";
-    }
-    if (guessNum == 1)
-    {
-        std::cout << "Congratulations! It took you 1 guess to get it right!\n";
-    }
-}
+
 
 
 // This function is self explanatory :)

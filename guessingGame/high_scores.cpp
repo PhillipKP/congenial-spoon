@@ -15,6 +15,9 @@
 #include <sstream>
 #include <random>
 
+// For handling files
+#include <fstream>
+
 
 
 // This function splits strings at the commas
@@ -61,4 +64,27 @@ std::string pad_initials(std::string initials_in)
     }
     
     return initials_out;
+}
+
+
+
+// This function displays the congratulations message
+void congrats(int guessNum)
+{
+    if (guessNum > 1)
+    {
+        std::cout << "Congratulations! It took you " << guessNum << " guesses to get it right!\n";
+    }
+    if (guessNum == 1)
+    {
+        std::cout << "Congratulations! It took you 1 guess to get it right!\n";
+    }
+}
+
+// Opens file and saves seconds since epoch, player's initials, and the number of guesses in the file
+void save_time_user_score_to_file(std::string high_scores_filename, std::string initials, int number_of_guesses)
+{
+    std::ofstream myfile{ high_scores_filename , std::ios::app };
+    myfile << get_sec_since_epoch() << ", " << initials << ", " << number_of_guesses << "\n";
+    myfile.close();
 }

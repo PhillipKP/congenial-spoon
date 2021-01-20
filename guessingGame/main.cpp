@@ -1,3 +1,5 @@
+//---- All the includes
+
 // For std::cout and std::cin
 #include <iostream>
 
@@ -20,52 +22,25 @@
 // Include the header file for the functions we use to the high score
 #include "high_scores.hpp"
 
+#include "players_struct.hpp"
 
-// Defines the struct called players_struct
-struct players_struct
-{
-    int guesses;
-    int timeSinceEpoch;
-    std::string stringValue;
-
-    // This is the constructor.
-    // In C++ constructors have the same name as the struct or class
-    // The : starts the member initialization list.
-    // All things being equal, your code will run faster if you use initialization lists rather than assignment.
-    
-    players_struct(int k, int j, const std::string s) : guesses{k}, timeSinceEpoch{j}, stringValue{s}
-    {
-    }
-    
-};
-
-
-// Defines the predicate function to for setting the rules of the sort
-bool less_than_guesses(const players_struct& struct1, const players_struct& struct2)
-{
-    
-    // Sorts based on the number of guesses if there isn't a tie in guesses
-    // Lower number of guesses are sorted ahead of higher number of guesses
-    if (struct1.guesses != struct2.guesses)
-    {
-        return struct1.guesses < struct2.guesses;
-    }
-    
-    // If there is a tie in guesses then it sorts based on seconds since epoch
-    return (struct1.timeSinceEpoch < struct2.timeSinceEpoch);
-    
-}
-
-
+//---- Begin the main function
 
 int main() {
     
+    // Best Practice: Any variable that shouldn't be modified after initialization and
+    // whose initializer is known at compile-time should be declared as constexpr.
+    // REMEMBER: constexpr creates compile-time constant
+    constexpr int answer_min = 0  ;
+    constexpr int answer_max = 100;
     
-    const int answer_min = 0  ;
-    const int answer_max = 100;
+    // REMEMBER: const just means it cannot be changed
     
-    // Generate random number
-    int answer{ genRandInt(answer_min, answer_max) };
+    // This is the filename where the scores are stored
+    const std::string high_scores_filename = "example.csv";
+    
+    // Generate random number and stores it in the variable answer
+    const int answer{ genRandInt(answer_min, answer_max) };
 
     
 // For debugging purposes
@@ -143,20 +118,17 @@ int main() {
          std::cout << "Thank you for playing " << initials << '\n';
          
          
-         // -- Opens the file and saves the seconds since epoch, player's initial, and the number of guesses in the file -- //
-         std::ofstream myfile{ "example.csv" , std::ios::app };
-         
-         myfile << get_sec_since_epoch() << ", " << initials << ", " << number_of_guesses << "\n";
-         
-         myfile.close();
-         
+         // Opens file and saves seconds since epoch, player's initials, and the number of guesses in the file
+         save_time_user_score_to_file(high_scores_filename, initials, number_of_guesses);
+
+    
          
          // -- Opens the CSV file containing the scores and prints everything in the file -- //
          
          
-         // ifstream is used for reading files
-         // We'll read from a file called Sample.dat
-         std::ifstream inf{ "example.csv" };
+         // Creates an ifstream object is used for reading files
+         // We'll read from a file high_scores_filename
+         std::ifstream inf{ high_scores_filename };
       
          // If we couldn't open the input file stream for reading
          if (!inf)
@@ -166,6 +138,7 @@ int main() {
              return 1;
          }
          
+         // Initializes a vector of strings called entire_output
          std::vector<std::string> entire_output;
          
          // While there's still stuff left to read it loops over each line in the file
@@ -183,7 +156,7 @@ int main() {
          }
 
          
-        std::cout << "Here is a list of scores from least to most number of guesses:\n";
+        std::cout << "Top ten scores:\n";
     
         
         for (std::string test_string: entire_output)
@@ -213,12 +186,16 @@ int main() {
     // Actually does the sorting using iterators and the function less_than_guesses
     std::sort(players.begin(), players.end(), &less_than_guesses);
     
+    // Used to keep track of how many scores to output
+    int count_scores_printed{1};
+    
     // Uses vector iterator to make the code cleaner than using indices
     for (players_struct p: players)
     {
         //D-BUG std::cout << p.stringValue << '\t' << p.guesses << '\t' << p.timeSinceEpoch << '\n';
         
         // function takes the string with initials in it and makes sure they are all the same length
+    
         
         
         std::string hs_initials = p.stringValue;
@@ -237,7 +214,20 @@ int main() {
         }
         
         
-        std::cout << hs_initials << '\t' << p.guesses << std::endl;
+        // Only prints the first 10 scores
+        if (count_scores_printed < 10)
+        {
+            std::cout << count_scores_printed << ",  " <<  hs_initials << '\t' << p.guesses << std::endl;
+        }
+        else if (count_scores_printed == 10)
+        {
+            std::cout << count_scores_printed << ", " <<  hs_initials << '\t' << p.guesses << std::endl;
+        }
+            
+            
+        count_scores_printed++;
+        //std::cerr << count_scores_printed << '\n';
+        
     }
          
     return 0;
